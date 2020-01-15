@@ -41,20 +41,16 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     let squares = clearTable();
+    /* it is necessary to bind in the constructor the functions
+    that need callbacks to retain the reference to "this" */
     this.handleClick = this.handleClick.bind(this);
+    this.reset = this.reset.bind(this);
     this.state = {
       history: [{squares: squares}],
       xIsNext: true,
       winner: null,
       stepNumber: 0,
     };
-  }
-  renderResetButton(){
-    return (
-      <button className="reset" onClick={() => this.reset()}>
-        Reset
-      </button>
-      )
   }
 
   reset(){
@@ -69,7 +65,6 @@ class Game extends React.Component {
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[this.state.stepNumber];
-    console.log(current);
     const squares = current.squares.slice();
     if (squares[i] || this.state.winner) return;
     squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -95,6 +90,8 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     let status;
 
+    /* step refers to the "board" object being mapped,
+     move is the index of the object in the history Array   */
     const moves = history.map((step, move) => {
       const desc = move ? 'Go to move #' + move : 'Go to game start';
       return (
@@ -120,8 +117,14 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
-          <div className="status">{this.renderResetButton()}</div>           <ol>{moves}</ol>
+          <div className="status">{status}</div>
+          <div className="reset-button">
+            <button className="reset" onClick={this.reset}>
+              Reset
+            </button>
+            </div>
+
+            <ol>{moves}</ol>
         </div>
       </div>
     );
