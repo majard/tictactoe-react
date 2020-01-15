@@ -4,7 +4,7 @@ import './index.css';
 
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={`square ${props.status}`} onClick={props.onClick}>
       {props.value}
     </button>
   )
@@ -13,19 +13,23 @@ function Square(props) {
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    this.size = props.size;
+    this.isMainBoard = props.isMainBoard;
   }
   renderSquare(i) {
+    let className = this.isMainBoard&&!calculateWinner(this.props.squares)?
+                      (this.props.squares[i]? "occupied" : "empty")
+                    : "";
     return <Square
              value={this.props.squares[i]}
-             onClick = {() => this.props.onClick(i)}
+             onClick={() => this.props.onClick(i)}
+             status={className}
            />;
   }
 
 
   render() {
-    let className = (this.size == "main-board")? this.size
-                                               : "mini-board";
+    let className = this.isMainBoard? "main"
+                                    : "mini";
 
     return (
       <div className={className}>
@@ -106,7 +110,10 @@ class Game extends React.Component {
       return (
         <li key={move}>
           <button onClick = {() => this.jumpTo(move)}>{desc} </button>
-          <Board squares = {history[move].squares}/>
+          <Board
+            squares={history[move].squares}
+            onClick={(e)=>e}
+          />
         </li>
       );
     });
@@ -122,8 +129,10 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            squares = {current.squares}
-            onClick = {(i) => this.handleClick(i)}
+            squares={current.squares}
+            onClick={(i) => this.handleClick(i)}
+            isMainBoard={true}
+            winner={this.state.winner}
           />
         </div>
         <div className="game-info">
