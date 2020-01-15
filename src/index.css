@@ -57,7 +57,7 @@ ol, ul {
 
 .game-info {
   height: 80vh;
-  width: 40vw;
+  width: 50vw;
   float: right;
   display: inline-block;
   overflow: auto;
@@ -74,11 +74,16 @@ ol, ul {
   display: inline-block;
 }
 
-.status {
+.move-history li{
   display: inline-block;
+  margin: 8px;
+}
+
+.status {
+  display: block;
   vertical-align: top;
   margin: 10px;
-  font-size: 20px;
+  font-size: 32px;
 }
 
 .status div {

@@ -105,7 +105,7 @@ class Game extends React.Component {
     /* step refers to the "board" object being mapped,
      move is the index of the object in the history Array   */
     const moves = history.map((step, move) => {
-      const desc = move ?'Go to move #' + move + " => "
+      const desc = move ?'Go to move #' + move
         :'Go to game start';
       return (
         <li key={move}>
