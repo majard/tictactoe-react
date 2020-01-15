@@ -41,6 +41,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     let squares = clearTable();
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
       history: [{squares: squares}],
       xIsNext: true,
@@ -71,7 +72,6 @@ class Game extends React.Component {
     console.log(current);
     const squares = current.squares.slice();
     if (squares[i] || this.state.winner) return;
-
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     let winner = calculateWinner(squares);
     this.setState({
@@ -86,6 +86,7 @@ class Game extends React.Component {
       this.setState({
         stepNumber: step,
         xIsNext: (step % 2) === 0,
+        winner: calculateWinner(this.state.history[step]),
       });
     }
 
