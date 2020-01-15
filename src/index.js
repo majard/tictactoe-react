@@ -11,6 +11,10 @@ function Square(props) {
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.size = props.size;
+  }
   renderSquare(i) {
     return <Square
              value={this.props.squares[i]}
@@ -20,9 +24,11 @@ class Board extends React.Component {
 
 
   render() {
+    let className = (this.size == "main-board")? this.size
+                                               : "mini-board";
 
     return (
-      <div>
+      <div className={className}>
         <div className="board-row">
           {this.renderSquare(0)}{this.renderSquare(1)}{this.renderSquare(2)}
         </div>
@@ -121,13 +127,17 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div className="status">{status}</div>
-          <div className="reset">
-            <button className="reset-button" onClick={this.reset}>
-              Reset
-            </button>
+          <div className="status">
+            <div>{status}</div>
+            <div className="reset">
+              <button className="reset-button" onClick={this.reset}>
+                Reset
+              </button>
+            </div>
           </div>
-          <ol>{moves}</ol>
+          <div className="move-history">
+            <ol>{moves}</ol>
+          </div>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  height: 80vh;
 }
 
 ol, ul {
@@ -46,5 +47,29 @@ ol, ul {
 }
 
 .game-info {
-  margin-left: 20px;
+  height: 80vh;
+  width: 40vw;
+  float: right;
+  display: inline-block;
+  overflow: auto;
+}
+
+.game-board {
+  height: 80vh;
+  width: 40vw;
+  display: inline-block;
+  float: left;
+}
+
+.move-history {
+  display: inline-block;
+}
+
+.status {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+}
+.main-board {
+
 }
