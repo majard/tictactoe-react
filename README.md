@@ -1,3 +1,4 @@
+This is a simple tic tac toe app to play on a browser that is in the react tutorial(https://reactjs.org/tutorial/tutorial.html), but with some extra code and features layered on top, just for fun.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
