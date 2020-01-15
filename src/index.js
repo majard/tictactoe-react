@@ -55,6 +55,7 @@ class Game extends React.Component {
     that need callbacks to retain the reference to "this" */
     this.handleClick = this.handleClick.bind(this);
     this.reset = this.reset.bind(this);
+    this.jumpTo = this.jumpTo.bind(this);
     this.state = {
       history: [{squares: squares}],
       xIsNext: true,
@@ -85,15 +86,18 @@ class Game extends React.Component {
       stepNumber: history.length,
       winner: winner
     });
-  }
+      }
 
   jumpTo(step) {
-      this.setState({
+        const history = this.state.history;
+        const current = history[step];
+        let winner = calculateWinner(current.squares);
+        this.setState({
         stepNumber: step,
         xIsNext: (step % 2) === 0,
-        winner: calculateWinner(this.state.history[step]),
+        winner: winner,
       });
-    }
+  }
 
 
 
@@ -117,9 +121,9 @@ class Game extends React.Component {
         </li>
       );
     });
-
-    if (this.state.winner) {
-      status = 'Winner: ' + this.state.winner;
+    let winner = this.state.winner;
+    if (winner) {
+      status = ((winner==='draw')? 'Draw' : 'Winner: ' + winner);
     }
     else {
       status = 'Next move: ' + (this.state.xIsNext ? 'X' : 'O');
@@ -132,7 +136,7 @@ class Game extends React.Component {
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
             isMainBoard={true}
-            winner={this.state.winner}
+            winner={winner}
           />
         </div>
         <div className="game-info">
@@ -171,13 +175,16 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  for (let i = 0; i < lines.length; i++) {
+    for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
-  return null;
+  for (let i=0; i < squares.length; i++){
+    if (!squares[i]) return null;
+  }
+  return 'draw'
 }
 
 function clearTable(squares){

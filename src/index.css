@@ -5,7 +5,7 @@ body {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 0px;
 }
 
 .board-row:after {
