@@ -85,6 +85,8 @@ class Game extends React.Component {
       });
     }
 
+
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -93,10 +95,12 @@ class Game extends React.Component {
     /* step refers to the "board" object being mapped,
      move is the index of the object in the history Array   */
     const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
+      const desc = move ?'Go to move #' + move + " => "
+        :'Go to game start';
       return (
         <li key={move}>
           <button onClick = {() => this.jumpTo(move)}>{desc} </button>
+          <Board squares = {history[move].squares}/>
         </li>
       );
     });
@@ -118,13 +122,12 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div className="status">{status}</div>
-          <div className="reset-button">
-            <button className="reset" onClick={this.reset}>
+          <div className="reset">
+            <button className="reset-button" onClick={this.reset}>
               Reset
             </button>
-            </div>
-
-            <ol>{moves}</ol>
+          </div>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
@@ -158,6 +161,6 @@ function calculateWinner(squares) {
   return null;
 }
 
-function clearTable(){
+function clearTable(squares){
   return Array(9).fill(null)
 }
